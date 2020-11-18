@@ -11,7 +11,9 @@ namespace BosApen
         public int y { get; set; }
         public int id { get; set; }
 
-        public bool FFFFFitErEenAapOpDezeBoom { get => zitErEenAapOpDezeBoom; set => zitErEenAapOpDezeBoom = value; }
+        private bool zitErEenAapOpDezeBoom;
+
+
 
 
         public Boom(int coordinaatX, int coordinaatY, int id)
@@ -21,5 +23,16 @@ namespace BosApen
             this.id = id;
 
         }
+
+
+        public bool getzitErEenAapOpDezeBoom()
+        {
+            return zitErEenAapOpDezeBoom;
+        }
+        public void setzitErEenAapOpDezeBoom(bool boolwaarde)
+        {
+            zitErEenAapOpDezeBoom = boolwaarde;
+        }
+
     }
 }

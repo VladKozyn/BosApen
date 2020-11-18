@@ -61,27 +61,32 @@ namespace BosApen
             Boom dichtsteBoom = ZonderBezochteBomen.OrderBy(ZBB => AfstandTussenTweeBomen(a.currentBoom(), ZBB)).FirstOrDefault();
             return dichtsteBoom;
         }
-        public async Task AapSpring(Aap a)
+        public void AapSpring(Aap a)
         {
-            Boom currentBoomMetAap = a.currentBoom();
+            if (a.bezochteBomen.Count() == 0)
+            {
+                a.bezochteBomen.Add( listBomen[(random.Next(listBomen.Count))]);
+            }
 
+                Boom currentBoomMetAap = a.currentBoom();
+            
             Boom kortsteBoom = KortsteBoom(a);
             double checkBoom = AfstandTussenTweeBomen(a.currentBoom(), kortsteBoom);
             double checkRand = AfstandBerekenenBorder(a.currentBoom());
 
             if (checkRand < checkBoom)
-            {   
-                a.currentBoom().zitErEenAapOpDezeBoom = false;
-             
+            {
+                a.currentBoom().setzitErEenAapOpDezeBoom(false);
+
                 Console.WriteLine("Aap:{0} is uit het bos", a.naam);
                 listApen.Remove(a);
 
             }
             else
             {
-                a.currentBoom().zitErEenAapOpDezeBoom = false;
+                a.currentBoom().setzitErEenAapOpDezeBoom(false);
                 a.bezochteBomen.Add(kortsteBoom);
-                a.currentBoom().zitErEenAapOpDezeBoom = true;
+                a.currentBoom().setzitErEenAapOpDezeBoom(true);
                 Console.WriteLine("Aap:{0} BoomId:{1} Coordinaten:({2},{3})", a.naam, a.currentBoom().id, a.currentBoom().x, a.currentBoom().y);
 
             }

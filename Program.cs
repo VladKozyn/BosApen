@@ -9,7 +9,7 @@ namespace BosApen
         static void Main(string[] args)
         {
             List<Bos> bossen = new List<Bos>();
-            List<string> namen1 = new List<string>() { "marie", "jos" };
+            List<string> namen1 = new List<string>() { "marie", "jackie" };
             List<string> namen2 = new List<string>() { "paul", "keesje" };
             bossen.Add(new Bos(0, 0, 500, 500, 100));
             bossen[0].maakApen(2, namen1);

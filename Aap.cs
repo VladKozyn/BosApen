@@ -14,7 +14,7 @@ namespace BosApen
         public int y { get; set; }
         public string naam { get; set; }
         public List<Boom> bezochteBomen { get; set; } = new List<Boom>();
-        tst
+        
     public Aap(int id,int x,int y, string naam)
         {
             this.id = id;
@@ -37,7 +37,9 @@ namespace BosApen
         }
         public Boom currentBoom()
         {
-            return bezochteBomen.Last();
+           
+         return bezochteBomen.Last();
+            
         }
     }
 
