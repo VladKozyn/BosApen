@@ -11,7 +11,7 @@ namespace BosApen
         public int y { get; set; }
         public int id { get; set; }
 
-        public bool zitErEenAapOpDezeBoom { get => zitErEenAapOpDezeBoom; set => zitErEenAapOpDezeBoom = value; }
+        public bool FFFFFitErEenAapOpDezeBoom { get => zitErEenAapOpDezeBoom; set => zitErEenAapOpDezeBoom = value; }
 
 
         public Boom(int coordinaatX, int coordinaatY, int id)
