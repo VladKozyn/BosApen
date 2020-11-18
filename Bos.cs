@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -61,7 +62,7 @@ namespace BosApen
             Boom dichtsteBoom = ZonderBezochteBomen.OrderBy(ZBB => AfstandTussenTweeBomen(a.currentBoom(), ZBB)).FirstOrDefault();
             return dichtsteBoom;
         }
-        public void AapSpring(Aap a)
+        public  void AapSpring(Aap a)
         {
             if (a.bezochteBomen.Count() == 0)
             {
@@ -79,6 +80,15 @@ namespace BosApen
                 a.currentBoom().setzitErEenAapOpDezeBoom(false);
 
                 Console.WriteLine("Aap:{0} is uit het bos", a.naam);
+                System.IO.File.AppendAllText(@"C:\Users\lieke\OneDrive\scool\prog 4\BosApen\BosApen\test.txt", $"Aap:{a.naam} is uit het bos\n");
+                
+                // System.IO.File.WriteAllText(@"C:\Users\lieke\OneDrive\scool\prog 4\BosApen\BosApen\test.txt", $"Aap:{a.naam} is uit het bos");
+
+                //  using (StreamWriter outputFile = new StreamWriter(@"C:\Users\lieke\OneDrive\scool\prog 4\BosApen\BosApen\test.txt"))
+                //   {
+                //       await outputFile.WriteAsync($"Aap:{a.naam} is uit het bos");
+                //   }
+
                 listApen.Remove(a);
 
             }
@@ -88,7 +98,14 @@ namespace BosApen
                 a.bezochteBomen.Add(kortsteBoom);
                 a.currentBoom().setzitErEenAapOpDezeBoom(true);
                 Console.WriteLine("Aap:{0} BoomId:{1} Coordinaten:({2},{3})", a.naam, a.currentBoom().id, a.currentBoom().x, a.currentBoom().y);
+                System.IO.File.AppendAllText(@"C:\Users\lieke\OneDrive\scool\prog 4\BosApen\BosApen\test.txt", $"Aap:{a.naam} BoomId:{a.currentBoom().id} Coordinaten:({a.currentBoom().x},{a.currentBoom().y})\n");
 
+                // System.IO.File.WriteAllText(@"C:\Users\lieke\OneDrive\scool\prog 4\BosApen\BosApen\test.txt", $"Aap:{a.naam} BoomId:{a.currentBoom().id} Coordinaten:({a.currentBoom().x},{a.currentBoom().y})");
+
+                //    using (StreamWriter outputFile = new StreamWriter(@"C:\Users\lieke\OneDrive\scool\prog 4\BosApen\BosApen\test.txt"))
+                //      {
+                //         await outputFile.WriteAsync($"Aap:{a.naam} BoomId:{a.currentBoom().id} Coordinaten:({a.currentBoom().x},{a.currentBoom().y})");
+                //  }
             }
         }
     }
