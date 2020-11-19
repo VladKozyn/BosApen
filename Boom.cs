@@ -1,10 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 
 namespace BosApen
 {
+ 
+    [NotMapped]
     public class Boom
     {
         public int x { get; set; }
@@ -15,7 +18,7 @@ namespace BosApen
 
 
 
-
+        
         public Boom(int coordinaatX, int coordinaatY, int id)
         {
             this.x = coordinaatX;

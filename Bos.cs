@@ -1,5 +1,8 @@
-﻿using System;
+﻿using BosApen.EF;
+using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -9,15 +12,28 @@ namespace BosApen
 {
     public class Bos
     {
+        [Key]
+        public int recordID { get; set; }
+        public int bosID { get; set; }
+        public int boomID { get; set; }
+        public int x { get; set; }
+        public int y { get; set; }
+        [NotMapped]
         public int minGrooteX { get; set; }
+        [NotMapped]
         public int minGrooteY { get; set; }
+        [NotMapped]
         public int maxGrooteX { get; set; }
+        [NotMapped]
         public int maxGrooteY { get; set; }
         public List<Boom> listBomen = new List<Boom>();
         public List<Aap> listApen = new List<Aap>();
         Random random = new Random();
-        public Bos(int minGrooteX, int minGrooteY, int maxGrooteX, int maxGrooteY, int amountBomen)
+        Context ctx = new Context();
+
+        public Bos(int bosID, int minGrooteX, int minGrooteY, int maxGrooteX, int maxGrooteY, int amountBomen)
         {
+            this.bosID = bosID;
             this.minGrooteX = minGrooteX;
             this.minGrooteY = minGrooteY;
             this.maxGrooteX = maxGrooteX;
@@ -30,6 +46,15 @@ namespace BosApen
                             random.Next(minGrooteY, maxGrooteY), i);
                 listBomen.Add(t);
             };
+        }
+
+
+        public Bos(int bosID,int boomID,int x,int y)
+        {
+            this.bosID = bosID;
+            this.boomID = boomID;
+            this.x = x;
+            this.y = y;
         }
         public void maakApen(int hoeveelheid, List<string> namen)
         {
@@ -67,7 +92,7 @@ namespace BosApen
             if (a.bezochteBomen.Count() == 0)
             {
                 a.bezochteBomen.Add( listBomen[(random.Next(listBomen.Count))]);
-            }
+            } 
 
                 Boom currentBoomMetAap = a.currentBoom();
             
@@ -81,7 +106,8 @@ namespace BosApen
 
                 Console.WriteLine("Aap:{0} is uit het bos", a.naam);
                 System.IO.File.AppendAllText(@"C:\Users\lieke\OneDrive\scool\prog 4\BosApen\BosApen\test.txt", $"Aap:{a.naam} is uit het bos\n");
-                
+                ctx.Logs.Add(new Log(this.bosID,a.id, $"Aap:{a.naam} is uit het bos"));
+                ctx.SaveChanges();
                 // System.IO.File.WriteAllText(@"C:\Users\lieke\OneDrive\scool\prog 4\BosApen\BosApen\test.txt", $"Aap:{a.naam} is uit het bos");
 
                 //  using (StreamWriter outputFile = new StreamWriter(@"C:\Users\lieke\OneDrive\scool\prog 4\BosApen\BosApen\test.txt"))
@@ -99,6 +125,8 @@ namespace BosApen
                 a.currentBoom().setzitErEenAapOpDezeBoom(true);
                 Console.WriteLine("Aap:{0} BoomId:{1} Coordinaten:({2},{3})", a.naam, a.currentBoom().id, a.currentBoom().x, a.currentBoom().y);
                 System.IO.File.AppendAllText(@"C:\Users\lieke\OneDrive\scool\prog 4\BosApen\BosApen\test.txt", $"Aap:{a.naam} BoomId:{a.currentBoom().id} Coordinaten:({a.currentBoom().x},{a.currentBoom().y})\n");
+                ctx.Logs.Add(new Log(this.bosID, a.id, $"Aap:{a.naam} BoomId:{a.currentBoom().id} Coordinaten:({a.currentBoom().x},{a.currentBoom().y})"));
+                ctx.SaveChanges();
 
                 // System.IO.File.WriteAllText(@"C:\Users\lieke\OneDrive\scool\prog 4\BosApen\BosApen\test.txt", $"Aap:{a.naam} BoomId:{a.currentBoom().id} Coordinaten:({a.currentBoom().x},{a.currentBoom().y})");
 
@@ -106,6 +134,7 @@ namespace BosApen
                 //      {
                 //         await outputFile.WriteAsync($"Aap:{a.naam} BoomId:{a.currentBoom().id} Coordinaten:({a.currentBoom().x},{a.currentBoom().y})");
                 //  }
+
             }
         }
     }

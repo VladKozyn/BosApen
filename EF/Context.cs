@@ -1,14 +1,15 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace BosApen.EF
 {
-    class Context
+    class Context : DbContext
     {
-        public DbSet<Speler> Spelers { get; set; }
-        public DbSet<Team> Teams { get; set; }
-        public DbSet<Transfer> Transfers { get; set; }
+        public DbSet<Aap> AapRecords { get; set; }
+        public DbSet<Bos> BosRecords { get; set; }
+        public DbSet<Log> Logs { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
